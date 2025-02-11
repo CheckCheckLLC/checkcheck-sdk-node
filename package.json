@@ -1,0 +1,50 @@
+{
+  "name": "checkcheck-node",
+  "version": "1.0.0",
+  "description": "CheckCheck Node SDK for sneaker authentication services",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "cz": "cz",
+    "prepare": "husky"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "engineStrict": true,
+  "dependencies": {
+    "axios": "^1.7.9",
+    "commitizen": "^4.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-conventional-changelog-with-jiraid-detection": "^1.0.4",
+    "eslint": "^9.20.1",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "globals": "^15.14.0",
+    "husky": "^9.1.7",
+    "jest": "^29.7.0",
+    "prettier": "^3.5.0",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.24.0"
+  },
+  "license": "MIT",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog-with-jiraid-detection"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && yarn cz --hook || true"
+    }
+  }
+}

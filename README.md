@@ -3,11 +3,21 @@
 ## 🚀 Section 1: Using the SDK
 
 ### Install the SDK
+
+#### Using NPM
+
 ```sh
 npm install checkcheck-node
 ```
 
+#### Using Yarn
+
+```sh
+yarn add checkcheck-node
+```
+
 ### Initialize the SDK
+
 ```typescript
 import CheckCheck from 'checkcheck-node';
 
@@ -15,9 +25,12 @@ const checkcheck = new CheckCheck('your-api-key');
 ```
 
 ### Make API Calls
+
 ```typescript
 // Create a user
-checkcheck.users.create({ email: 'test@example.com', name: 'John Doe' }).then(console.log);
+checkcheck.users
+  .create({ email: 'test@example.com', name: 'John Doe' })
+  .then(console.log);
 
 // Retrieve user details
 checkcheck.users.retrieve({ id: 'user-id' }).then(console.log);
@@ -28,6 +41,7 @@ checkcheck.users.retrieve({ id: 'user-id' }).then(console.log);
 ## 🛠 Section 2: Contributing to the SDK
 
 ### 📌 Setting Up the Development Environment
+
 1. Clone the repository:
    ```sh
    git clone https://github.com/your-repo/checkcheck-node.git
@@ -35,19 +49,21 @@ checkcheck.users.retrieve({ id: 'user-id' }).then(console.log);
 2. Install dependencies:
    ```sh
    cd checkcheck-node
-   npm install
+   yarn install
    ```
 3. Run tests to verify setup:
    ```sh
-   npm test
+   yarn test
    ```
 
 ### 📌 Code Contribution Guidelines
+
 - Follow the **folder structure** and **naming conventions** outlined below.
 - Submit **pull requests with clear descriptions**.
 - Write **unit tests** for any new features or changes.
 
 ### 📂 Folder Structure
+
 The SDK follows a structured and scalable design to ensure maintainability and clarity.
 
 ```
@@ -72,8 +88,8 @@ The SDK follows a structured and scalable design to ensure maintainability and c
 │   │   ├── request-helper.ts # Handles API request formatting
 │   │   ├── ...               # More utility files
 ├── tests                    # Jest test cases
-├── package.json             # NPM package config
-├── tsconfig.json            # TypeScript config
+├── package.json             # Package configuration
+├── tsconfig.json            # TypeScript configuration
 ├── README.md                # SDK documentation
 ├── .gitignore               # Git ignore rules
 ├── .npmignore               # NPM ignore rules
@@ -81,21 +97,25 @@ The SDK follows a structured and scalable design to ensure maintainability and c
 ```
 
 ### 📌 Naming Conventions
+
 This SDK follows **TypeScript best practices** for file naming:
 
-| **Category**            | **Naming Convention**                  | **Example**                             |
-|-------------------------|----------------------------------------|-----------------------------------------|
-| **Resource Modules**    | **PascalCase** (UpperCamelCase)        | `Users.ts`, `Payments.ts`               |
-| **Utility Files**       | **kebab-case** (lowercase-with-dashes) | `error-handler.ts`, `request-helper.ts` |
-| **Config Files**        | **camelCase** or **kebab-case**        | `config.ts`, `api-config.ts`            |
+| **Category**         | **Naming Convention**                  | **Example**                             |
+| -------------------- | -------------------------------------- | --------------------------------------- |
+| **Resource Modules** | **PascalCase** (UpperCamelCase)        | `Users.ts`, `Payments.ts`               |
+| **Utility Files**    | **kebab-case** (lowercase-with-dashes) | `error-handler.ts`, `request-helper.ts` |
+| **Config Files**     | **camelCase** or **kebab-case**        | `config.ts`, `api-config.ts`            |
 
 ### ✅ Why PascalCase for Resources?
+
 - Each **resource file** exports a **class**, so it follows **TypeScript’s class naming convention**.
 
 ### ✅ Why kebab-case for Utility Files?
+
 - Utility files contain **functions, not classes**, so they follow **Node.js convention**.
 
 ### 📌 Resource Method Naming
+
 Each **resource module** should implement these standard RESTful methods:
 
 ```typescript
@@ -114,7 +134,7 @@ checkcheck.[resource].suspend({ id })     // POST /[resource]/{id}/suspend
 checkcheck.[resource].resetPassword({ id }) // POST /[resource]/{id}/reset-password
 ```
 
-✅ *All API routes should follow kebab-case naming conventions.*
+✅ _All API routes should follow kebab-case naming conventions._
 
 ---
 
