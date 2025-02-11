@@ -23,8 +23,6 @@ checkcheck.users.create({ email: 'test@example.com', name: 'John Doe' }).then(co
 checkcheck.users.retrieve({ id: 'user-id' }).then(console.log);
 ```
 
----
-
 ## 📂 Folder Structure
 
 The SDK follows a structured and scalable design to ensure maintainability and clarity.
@@ -59,8 +57,6 @@ The SDK follows a structured and scalable design to ensure maintainability and c
 ├── ...                      # Other project files
 ```
 
----
-
 ## 📌 Naming Conventions
 
 This SDK follows **TypeScript best practices** for file naming:
@@ -76,8 +72,6 @@ This SDK follows **TypeScript best practices** for file naming:
 
 ### ✅ Why kebab-case for Utility Files?
 - Utility files contain **functions, not classes**, so they follow **Node.js convention**.
-
----
 
 ## 📌 Resource Method Naming
 Each **resource module** should implement these standard RESTful methods:
@@ -99,5 +93,3 @@ checkcheck.[resource].resetPassword({ id }) // POST /[resource]/{id}/reset-passw
 ```
 
 ✅ *All API routes should follow kebab-case naming conventions.*
-
----
