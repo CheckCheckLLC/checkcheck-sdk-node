@@ -1,7 +1,6 @@
 # CheckCheck Node SDK
-[DESCRIPTION]
 
-## 🚀 Using the SDK
+## 🚀 Section 1: Using the SDK
 
 ### Install the SDK
 ```sh
@@ -15,7 +14,7 @@ import CheckCheck from 'checkcheck-node';
 const checkcheck = new CheckCheck('your-api-key');
 ```
 
-### Make Calls
+### Make API Calls
 ```typescript
 // Create a user
 checkcheck.users.create({ email: 'test@example.com', name: 'John Doe' }).then(console.log);
@@ -24,8 +23,31 @@ checkcheck.users.create({ email: 'test@example.com', name: 'John Doe' }).then(co
 checkcheck.users.retrieve({ id: 'user-id' }).then(console.log);
 ```
 
-## 📂 Folder Structure
+---
 
+## 🛠 Section 2: Contributing to the SDK
+
+### 📌 Setting Up the Development Environment
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/your-repo/checkcheck-node.git
+   ```
+2. Install dependencies:
+   ```sh
+   cd checkcheck-node
+   npm install
+   ```
+3. Run tests to verify setup:
+   ```sh
+   npm test
+   ```
+
+### 📌 Code Contribution Guidelines
+- Follow the **folder structure** and **naming conventions** outlined below.
+- Submit **pull requests with clear descriptions**.
+- Write **unit tests** for any new features or changes.
+
+### 📂 Folder Structure
 The SDK follows a structured and scalable design to ensure maintainability and clarity.
 
 ```
@@ -58,8 +80,7 @@ The SDK follows a structured and scalable design to ensure maintainability and c
 ├── ...                      # Other project files
 ```
 
-## 📌 Naming Conventions
-
+### 📌 Naming Conventions
 This SDK follows **TypeScript best practices** for file naming:
 
 | **Category**            | **Naming Convention**                  | **Example**                             |
@@ -74,7 +95,7 @@ This SDK follows **TypeScript best practices** for file naming:
 ### ✅ Why kebab-case for Utility Files?
 - Utility files contain **functions, not classes**, so they follow **Node.js convention**.
 
-## 📌 Resource Method Naming
+### 📌 Resource Method Naming
 Each **resource module** should implement these standard RESTful methods:
 
 ```typescript
@@ -94,3 +115,7 @@ checkcheck.[resource].resetPassword({ id }) // POST /[resource]/{id}/reset-passw
 ```
 
 ✅ *All API routes should follow kebab-case naming conventions.*
+
+---
+
+✅ Your contributions help improve the SDK! Feel free to submit issues or PRs. 🚀
