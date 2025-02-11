@@ -1,4 +1,5 @@
 # CheckCheck Node SDK
+[DESCRIPTION]
 
 ## 🚀 Using the SDK
 
