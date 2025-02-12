@@ -21,7 +21,7 @@ yarn add checkcheck
 ```typescript
 import CheckCheck from 'checkcheck';
 
-const checkcheck = new CheckCheck('your-api-key');
+const checkcheck = new CheckCheck('your-secret-key');
 ```
 
 ### Make API Calls
