@@ -7,19 +7,19 @@
 #### Using NPM
 
 ```sh
-npm install checkcheck-node
+npm install checkcheck
 ```
 
 #### Using Yarn
 
 ```sh
-yarn add checkcheck-node
+yarn add checkcheck
 ```
 
 ### Initialize the SDK
 
 ```typescript
-import CheckCheck from 'checkcheck-node';
+import CheckCheck from 'checkcheck';
 
 const checkcheck = new CheckCheck('your-api-key');
 ```
