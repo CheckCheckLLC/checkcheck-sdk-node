@@ -53,7 +53,7 @@ export class Client {
           error.response.data?.message ||
           `HTTP Error: ${error.response.status}`;
       } else if (error.request) {
-        errorMessage = 'No response received from the server';
+        errorMessage = `No response received from the server.`;
       } else {
         errorMessage = error.message;
       }

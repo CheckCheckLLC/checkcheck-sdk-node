@@ -1,7 +1,7 @@
 export type Environment = 'live' | 'sandbox';
 export const environmentBaseURLs: Record<Environment, string> = {
-  live: 'https://api.checkcheck.com',
-  sandbox: 'https://api-dev.checkcheck.com',
+  live: 'https://api-sdk.checkcheck.com',
+  sandbox: 'https://api-sdk-dev.getcheckcheck.com',
 };
 
 export const defaultClientOptions = {
