@@ -1,5 +1,5 @@
 {
-  "name": "checkcheck-node",
+  "name": "checkcheck",
   "version": "1.0.0",
   "description": "CheckCheck Node SDK for sneaker authentication services",
   "main": "./dist/index.js",
