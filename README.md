@@ -36,19 +36,13 @@ const userDetails = await client.users.retrieve(user.id);
 ```
 ├── src                      # SDK source code
 │   ├── index.ts            # SDK entry point
-│   ├── base-resource.ts    # Base resource class (handles requests)
+│   ├── resource.ts         # Base resource class (handles requests)
 │   ├── client.ts           # API client setup
 │   ├── config.ts           # Configuration settings
+│   ├── errors.ts           # Custom error classes
 │   ├── resources           # API resource modules
-│   │   ├── users.ts        # Users API resource
-│   │   ├── payments.ts     # Payments API resource
-│   │   ├── check-requests.ts # Check Requests API resource
-│   │   ├── webhooks.ts     # Webhooks API resource
 │   │   ├── categories.ts   # Categories API resource
 │   │   ├── ...             # More API resource files
-│   ├── utils               # Utility/helper functions
-│   │   ├── error-handler.ts # Handles error responses
-│   │   ├── ...             # More utility files
 ├── tests                   # Jest test cases
 ├── ...                    # Other project files
 ```
@@ -60,7 +54,7 @@ Each resource follows RESTful conventions:
 ```typescript
 // Standard Methods
 client.users.create(data)              // POST /users
-client.users.retrieve(id)              // GET /users/:id
+client.users.get(id)                   // GET /users/:id
 client.users.update(id, data)          // PATCH /users/:id
 client.users.delete(id)                // DELETE /users/:id
 client.users.list(params)              // GET /users

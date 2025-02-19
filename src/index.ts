@@ -1,6 +1,6 @@
-import { Client } from './Client';
+import { Client } from './client';
 import { Environment, environmentBaseURLs } from './config';
-import { Categories } from './resources/Categories';
+import { Categories } from './resources/categories';
 
 export interface CheckCheckOptions {
   env: Environment;
