@@ -1,141 +1,105 @@
 # CheckCheck Node SDK
 
-## 🚀 Section 1: Using the SDK
+Official Node.js SDK for the CheckCheck API.
 
-### Install the SDK
-
-#### Using NPM
+## Installation
 
 ```sh
 npm install checkcheck
-```
-
-#### Using Yarn
-
-```sh
+# or
 yarn add checkcheck
 ```
 
-### Initialize the SDK
+## Quick Start
 
 ```typescript
-import CheckCheck from 'checkcheck';
+import { CheckCheck } from 'checkcheck';
 
-const checkcheck = new CheckCheck('your-secret-key');
-```
+const client = new CheckCheck('your-secret-key');
 
-### Make API Calls
-
-```typescript
 // Create a user
-checkcheck.users
-  .create({ email: 'test@example.com', name: 'John Doe' })
-  .then(console.log);
+const user = await client.users.create({
+  email: 'test@example.com',
+  name: 'John Doe'
+});
 
 // Retrieve user details
-checkcheck.users.retrieve({ id: 'user-id' }).then(console.log);
+const userDetails = await client.users.retrieve(user.id);
 ```
 
----
 
-## 🛠 Section 2: Contributing to the SDK
 
-### 📌 Setting Up the Development Environment
+## Contributing
+
+## Project Structure
+
+```
+├── src                      # SDK source code
+│   ├── index.ts            # SDK entry point
+│   ├── base-resource.ts    # Base resource class (handles requests)
+│   ├── client.ts           # API client setup
+│   ├── config.ts           # Configuration settings
+│   ├── resources           # API resource modules
+│   │   ├── users.ts        # Users API resource
+│   │   ├── payments.ts     # Payments API resource
+│   │   ├── check-requests.ts # Check Requests API resource
+│   │   ├── webhooks.ts     # Webhooks API resource
+│   │   ├── categories.ts   # Categories API resource
+│   │   ├── ...             # More API resource files
+│   ├── utils               # Utility/helper functions
+│   │   ├── error-handler.ts # Handles error responses
+│   │   ├── ...             # More utility files
+├── tests                   # Jest test cases
+├── ...                    # Other project files
+```
+
+## Resource Methods
+
+Each resource follows RESTful conventions:
+
+```typescript
+// Standard Methods
+client.users.create(data)              // POST /users
+client.users.retrieve(id)              // GET /users/:id
+client.users.update(id, data)          // PATCH /users/:id
+client.users.delete(id)                // DELETE /users/:id
+client.users.list(params)              // GET /users
+
+// Custom Actions
+client.users.activate(id)              // POST /users/:id/activate
+client.users.resetPassword(id)         // POST /users/:id/reset-password
+```
+
+### Setup
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-repo/checkcheck-node.git
+   git clone https://github.com/checkcheck/checkcheck-node.git
+   cd checkcheck-node
    ```
+
 2. Install dependencies:
    ```sh
-   cd checkcheck-node
    yarn install
    ```
-3. Run tests to verify setup:
+
+3. Run tests:
    ```sh
    yarn test
    ```
 
-### 📌 Code Contribution Guidelines
+### Development Guidelines
 
-- Follow the **folder structure** and **naming conventions** outlined below.
-- Submit **pull requests with clear descriptions**.
-- Write **unit tests** for any new features or changes.
+1. **Code Style**
+   - Follow the established naming conventions
+   - Use TypeScript for all new files
 
-### 📂 Folder Structure
+2. **Testing**
+   - Write unit tests for new features
+   - Ensure all tests pass before submitting PRs
+   - Use Jest for testing
 
-The SDK follows a structured and scalable design to ensure maintainability and clarity.
-
-```
-├── src                      # SDK source code
-│   ├── index.ts             # SDK entry point
-│   ├── BaseResource.ts      # Base resource class (handles requests)
-│   ├── client.ts            # API client setup
-│   ├── config.ts            # Configuration settings
-│   ├── resources            # API resource modules
-│   │   ├── Users.ts         # Users API resource
-│   │   ├── Payments.ts      # Payments API resource
-│   │   ├── CheckRequests.ts # Check Requests API resource
-│   │   ├── Webhooks.ts      # Webhooks API resource
-│   │   ├── Categories.ts    # Categories API resource
-│   │   ├── Brands.ts        # Brands API resource
-│   │   ├── Styles.ts        # Styles API resource
-│   │   ├── StylePhotos.ts   # Style Photos API resource
-│   │   ├── CheckRequestImages.ts # Check Request Images API resource
-│   │   ├── ...              # More API resource files
-│   ├── utils                # Utility/helper functions
-│   │   ├── error-handler.ts  # Handles error responses
-│   │   ├── request-helper.ts # Handles API request formatting
-│   │   ├── ...               # More utility files
-├── tests                    # Jest test cases
-├── package.json             # Package configuration
-├── tsconfig.json            # TypeScript configuration
-├── README.md                # SDK documentation
-├── .gitignore               # Git ignore rules
-├── .npmignore               # NPM ignore rules
-├── ...                      # Other project files
-```
-
-### 📌 Naming Conventions
-
-This SDK follows **TypeScript best practices** for file naming:
-
-| **Category**         | **Naming Convention**                  | **Example**                             |
-| -------------------- | -------------------------------------- | --------------------------------------- |
-| **Resource Modules** | **PascalCase** (UpperCamelCase)        | `Users.ts`, `Payments.ts`               |
-| **Utility Files**    | **kebab-case** (lowercase-with-dashes) | `error-handler.ts`, `request-helper.ts` |
-| **Config Files**     | **camelCase** or **kebab-case**        | `config.ts`, `api-config.ts`            |
-
-### ✅ Why PascalCase for Resources?
-
-- Each **resource file** exports a **class**, so it follows **TypeScript’s class naming convention**.
-
-### ✅ Why kebab-case for Utility Files?
-
-- Utility files contain **functions, not classes**, so they follow **Node.js convention**.
-
-### 📌 Resource Method Naming
-
-Each **resource module** should implement these standard RESTful methods:
-
-```typescript
-checkcheck.[resource].create({...})       // POST /[resource]
-checkcheck.[resource].retrieve({ id })    // GET /[resource]/{id}
-checkcheck.[resource].list()              // GET /[resource]
-checkcheck.[resource].update({ id, ... }) // PATCH /[resource]/{id}
-checkcheck.[resource].delete({ id })      // DELETE /[resource]/{id}
-```
-
-For **custom actions**, follow **clear action-based naming**:
-
-```typescript
-checkcheck.[resource].activate({ id })    // POST /[resource]/{id}/activate
-checkcheck.[resource].suspend({ id })     // POST /[resource]/{id}/suspend
-checkcheck.[resource].resetPassword({ id }) // POST /[resource]/{id}/reset-password
-```
-
-✅ _All API routes should follow kebab-case naming conventions._
-
----
-
-✅ Your contributions help improve the SDK! Feel free to submit issues or PRs. 🚀
+3. **Pull Requests**
+   - Create a feature branch from `dev`
+   - Follow conventional commits
+   - Update documentation as needed
