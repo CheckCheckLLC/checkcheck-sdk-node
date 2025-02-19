@@ -23,8 +23,8 @@ const user = await client.users.create({
   name: 'John Doe'
 });
 
-// Retrieve user details
-const userDetails = await client.users.retrieve(user.id);
+// Get user details
+const userDetails = await client.users.get(user.id);
 ```
 
 
