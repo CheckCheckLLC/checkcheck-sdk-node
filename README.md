@@ -36,8 +36,8 @@ const userDetails = await client.users.retrieve(user.id);
 ```
 ├── src                      # SDK source code
 │   ├── index.ts            # SDK entry point
-│   ├── resource.ts         # Base resource class (handles requests)
-│   ├── client.ts           # API client setup
+│   ├── resource.ts         # Base resource class (For shared methods)
+│   ├── client.ts           # Http client setup
 │   ├── config.ts           # Configuration settings
 │   ├── errors.ts           # Custom error classes
 │   ├── resources           # API resource modules
