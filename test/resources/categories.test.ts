@@ -1,11 +1,12 @@
-import CheckCheck from '../../src';
+import { categorySchema } from '../../src/resources/categories';
+import { validateArray } from '../../src/utils';
+import { getCheckCheckInstance } from '../utils';
 
-const checkcheck = new CheckCheck('api-key');
+const checkcheck = getCheckCheckInstance();
 
 describe('Categories', () => {
   test('list', async () => {
     const data = await checkcheck.categories.list();
-    console.log(data);
-    expect(data).toBeDefined();
+    expect(await validateArray(data, categorySchema)).toBeTruthy();
   });
 });

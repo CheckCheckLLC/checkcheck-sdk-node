@@ -1,22 +1,25 @@
+import * as yup from 'yup';
 import { Resource } from '../resource';
-import { BaseEntity, TranslatableField } from '../types/common';
+import { baseResourceSchema, translatableFieldSchema } from '../schemas';
+import { castArray } from '../utils';
 
-export interface Category extends BaseEntity {
-  name: TranslatableField;
-}
+export const categorySchema = baseResourceSchema.shape({
+  name: translatableFieldSchema.required(),
+  sort_order: yup.number().integer(),
+  image_url: yup.string(),
+  active: yup.boolean().required(),
+});
+
+export type Category = yup.InferType<typeof categorySchema>;
 
 export class Categories extends Resource {
-  async get(id: number): Promise<Category> {
-    return this.client.request<Category>({
-      method: 'GET',
-      url: `/categories/${id}`,
-    });
-  }
-
   async list(): Promise<Category[]> {
-    return this.client.request<Category[]>({
-      method: 'GET',
-      url: '/categories',
-    });
+    return castArray(
+      await this.client.request({
+        method: 'GET',
+        url: '/categories',
+      }),
+      categorySchema,
+    );
   }
 }

@@ -27,7 +27,8 @@
   },
   "engineStrict": true,
   "dependencies": {
-    "axios": "^1.7.9"
+    "axios": "^1.7.9",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.26.9",
