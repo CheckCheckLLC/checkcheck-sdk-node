@@ -1,7 +1,6 @@
 export class CheckCheckError extends Error {
   readonly name: string = 'CheckCheckError';
   readonly originalError?: Error;
-  readonly statusCode?: number;
 
   constructor(
     message: string,
@@ -9,13 +8,24 @@ export class CheckCheckError extends Error {
   ) {
     super(message);
     this.originalError = options?.originalError;
-    this.statusCode = options?.statusCode;
   }
 }
 
-export class APIError extends CheckCheckError {
-  readonly name: string = 'APIError';
+export class ClientValidationError extends CheckCheckError {
+  readonly name: string = 'ClientValidationError';
+
+  constructor(
+    message: string = 'Client validation failed',
+    options?: { originalError?: Error },
+  ) {
+    super(message, options);
+  }
+}
+
+export class ApiError extends CheckCheckError {
+  readonly name: string = 'ApiError';
   readonly data?: any;
+  readonly statusCode?: number;
 
   constructor(
     message: string,
@@ -26,11 +36,12 @@ export class APIError extends CheckCheckError {
     },
   ) {
     super(message, options);
+    this.statusCode = options?.statusCode;
     this.data = options?.data;
   }
 }
 
-export class BadRequestError extends APIError {
+export class BadRequestError extends ApiError {
   readonly name: string = 'BadRequestError';
 
   constructor(
@@ -41,7 +52,7 @@ export class BadRequestError extends APIError {
   }
 }
 
-export class AuthenticationError extends APIError {
+export class AuthenticationError extends ApiError {
   readonly name: string = 'AuthenticationError';
 
   constructor(
@@ -52,7 +63,7 @@ export class AuthenticationError extends APIError {
   }
 }
 
-export class NotFoundError extends APIError {
+export class NotFoundError extends ApiError {
   readonly name: string = 'NotFoundError';
 
   constructor(
@@ -63,7 +74,7 @@ export class NotFoundError extends APIError {
   }
 }
 
-export class RateLimitError extends APIError {
+export class RateLimitError extends ApiError {
   readonly name: string = 'RateLimitError';
 
   constructor(
@@ -92,7 +103,7 @@ export function handleRequestError(error: any): never {
       case 429:
         throw new RateLimitError(data.message, { data });
       default:
-        throw new APIError(data.message || 'API request failed', {
+        throw new ApiError(data.message || 'API request failed', {
           statusCode: status,
           data,
         });

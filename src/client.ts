@@ -26,7 +26,7 @@ export class Client {
       baseURL,
       timeout: this.config.timeout,
       headers: {
-        Authorization: `Bearer ${this.config.apiKey}`,
+        'X-Api-Key': `${this.config.apiKey}`,
         'Content-Type': 'application/json',
         ...this.config.headers,
       },
