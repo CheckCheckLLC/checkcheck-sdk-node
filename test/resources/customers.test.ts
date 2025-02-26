@@ -12,7 +12,7 @@ describe('Customers', () => {
   const newCustomer: CreateCustomer = {
     name: 'Test Customer',
     email: 'test@example.com',
-    seller_category: ['retail', 'wholesale'],
+    seller_category: ['sneakers', 'handbags'],
   };
 
   test('create', async () => {
