@@ -15,16 +15,21 @@ yarn add checkcheck
 ```typescript
 import { CheckCheck } from 'checkcheck';
 
-const client = new CheckCheck('your-secret-key');
-
-// Create a user
-const user = await client.users.create({
-  email: 'test@example.com',
-  name: 'John Doe',
+const client = new CheckCheck('your-secret-key', {
+   env: 'sandbox'
 });
 
-// Get user details
-const userDetails = await client.users.get(user.id);
+// List categories
+const categories = await client.categories.list({
+   page: 1,
+   limit: 10
+});
+
+// Create a customer
+const customer = await client.customers.create({
+   name: 'John Doe',
+   email: 'john@example.com'
+});
 ```
 
 ## Contributing
@@ -34,7 +39,6 @@ const userDetails = await client.users.get(user.id);
 ```
 ├── src                      # SDK source code
 │   ├── index.ts            # SDK entry point
-│   ├── resource.ts         # Base resource class (For shared methods)
 │   ├── client.ts           # Http client setup
 │   ├── config.ts           # Configuration settings
 │   ├── errors.ts           # Custom error classes
@@ -45,22 +49,62 @@ const userDetails = await client.users.get(user.id);
 ├── ...                    # Other project files
 ```
 
-## Resource Methods
+## Available Resources
 
-Each resource follows RESTful conventions:
+The SDK provides access to the following API resources and methods:
 
-```typescript
-// Standard Methods
-client.users.create(data); // POST /users
-client.users.get(id); // GET /users/:id
-client.users.update(id, data); // PATCH /users/:id
-client.users.delete(id); // DELETE /users/:id
-client.users.list(params); // GET /users
+### Categories
 
-// Custom Actions
-client.users.activate(id); // POST /users/:id/activate
-client.users.resetPassword(id); // POST /users/:id/reset-password
-```
+* `list(params)`: Get a paginated list of categories
+* `get(id)`: Retrieve a specific category by ID
+
+### Brands
+
+* `list(params)`: Get a paginated list of brands
+* `get(id)`: Retrieve a specific brand by ID
+
+### Styles
+
+* `list(params)`: Get a paginated list of styles
+* `get(id)`: Retrieve a specific style by ID
+
+### Customers
+
+* `list(params)`: Get a paginated list of customers
+* `get(id)`: Retrieve a specific customer by ID
+* `create(data)`: Create a new customer
+* `delete(id)`: Delete a specific customer
+
+### Files
+
+* `upload(data)`: Upload a file with customer association
+
+### CheckRequests
+
+* `list(params)`: Get a paginated list of check requests
+* `get(id)`: Retrieve a specific check request by ID
+* `create(data)`: Create a new check request with image
+* `addAdditionalPhotos(id, data)`: Add additional photos to an existing check request
+
+### Plans
+
+* `list(params)`: Get a paginated list of subscription plans
+
+### PlanOrders
+
+* `create(data)`: Create a new plan order/subscription
+
+### Webhooks
+
+* `list(params)`: Get a paginated list of webhooks
+* `get(id)`: Retrieve a specific webhook by ID
+* `create(data)`: Create a new webhook
+* `update(id, data)`: Update an existing webhook
+* `delete(id)`: Delete a specific webhook
+
+### ServiceLevels
+
+* `list(params)`: Get a paginated list of service levels
 
 ### Setup
 
@@ -78,6 +122,7 @@ client.users.resetPassword(id); // POST /users/:id/reset-password
    ```
 
 3. Run tests:
+
    ```sh
    yarn test
    ```
@@ -86,16 +131,17 @@ client.users.resetPassword(id); // POST /users/:id/reset-password
 
 1. **Code Style**
 
-   - Follow the established naming conventions
-   - Use TypeScript for all new files
+   * Follow the established naming conventions
+   * Use TypeScript for all new files
 
 2. **Testing**
 
-   - Write unit tests for new features
-   - Ensure all tests pass before submitting PRs
-   - Use Jest for testing
+   * Write unit tests for new features
+   * Ensure all tests pass before submitting PRs
+   * Use Jest for testing
 
 3. **Pull Requests**
-   - Create a feature branch from `dev`
-   - Follow conventional commits
-   - Update documentation as needed
+
+   * Create a feature branch from `dev`
+   * Follow conventional commits
+   * Update documentation as needed

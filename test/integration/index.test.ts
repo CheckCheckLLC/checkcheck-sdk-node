@@ -42,7 +42,7 @@ const generateMockImage = () => {
 
 describe('CheckCheck Integration Tests', () => {
   const checkcheck = new CheckCheck(API_KEY, {
-    baseURL: 'http://localhost:3000',
+    env: 'sandbox',
   });
 
   describe('Categories', () => {
