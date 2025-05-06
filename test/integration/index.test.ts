@@ -157,11 +157,6 @@ describe('CheckCheck Integration Tests', () => {
 
   describe('Plan Orders', () => {
     it('can create a plan order', async () => {
-      // Create a new customer
-      const { id: customerId } = await checkcheck.customers.create({
-        name: faker.person.fullName(),
-        email: faker.internet.email(),
-      });
       // Get first plan
       const {
         data: [{ id: planId }],
@@ -169,7 +164,7 @@ describe('CheckCheck Integration Tests', () => {
 
       const result = await checkcheck.planOrders.create({
         plan_id: planId,
-        customer_id: customerId,
+        customer_id: 1,
       });
       debug(result);
       await expect(
@@ -235,14 +230,9 @@ describe('CheckCheck Integration Tests', () => {
 
   describe('Uploads', () => {
     it('can upload a file', async () => {
-      // Create a new customer
-      const { id: customerId } = await checkcheck.customers.create({
-        name: faker.person.fullName(),
-        email: faker.internet.email(),
-      });
       const result = await checkcheck.files.upload({
         file: generateMockImage(),
-        customer_id: customerId,
+        customer_id: 1,
       });
 
       // Validate with schema
@@ -253,7 +243,7 @@ describe('CheckCheck Integration Tests', () => {
   });
 
   describe('CheckRequests', () => {
-    const customerId = 11;
+    const customerId = 1;
     let serviceLevelId: number;
     let styleId: number;
     let imageUrl: string;
