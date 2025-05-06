@@ -1,11 +1,14 @@
-# .github/workflows/main.yml
-name: CI/CD
+name: CI/CD - DEV
+
+# Grant checkout and package‑publish rights
+permissions:
+  contents: read
+  packages: write
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches:
+      - dev
 
 jobs:
   build:
@@ -16,23 +19,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Lint
-        run: npm run lint
+        run: yarn lint
 
       - name: Build
-        run: npm run build
+        run: yarn build
 
       - name: Test
-        run: npm test
+        run: yarn test
 
   publish:
     needs: build
@@ -41,18 +45,22 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+
+      - name: Use Node.js 16.x and point at GitHub Packages
+        uses: actions/setup-node@v3
         with:
           node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: https://npm.pkg.github.com
+          scope: '@CheckCheckLLC'
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Build
-        run: npm run build
+        run: yarn build
 
-      - name: Publish to npm
-        run: npm publish
+      - name: Publish to GitHub Packages
+        run: yarn publish --non-interactive
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

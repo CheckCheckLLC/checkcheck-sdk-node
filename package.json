@@ -1,16 +1,25 @@
 {
-  "name": "checkcheck",
-  "version": "1.0.0",
+  "name": "@CheckCheckLLC/checkcheck",
+  "version": "0.0.1",
   "description": "CheckCheck Node SDK for sneaker authentication services",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "keywords": [
-    "api",
-    "sdk",
-    "checkcheck"
-  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CheckCheckLLC/checkcheck.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CheckCheckLLC/checkcheck/issues"
+  },
+  "homepage": "https://github.com/CheckCheckLLC/checkcheck#readme",
+  "keywords": ["api", "sdk", "checkcheck"],
   "author": "CheckCheck",
+  "license": "MIT",
+  "files": ["dist"],
   "exports": {
     ".": {
       "require": "./dist/index.js",
@@ -18,9 +27,6 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "build": "tsup",
     "build:dev": "tsup --watch",
@@ -34,14 +40,11 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "testMatch": [
-      "**/test/**/*.test.ts"
-    ]
+    "testMatch": ["**/test/**/*.test.ts"]
   },
   "engines": {
     "node": ">=18.0.0"
   },
-  "engineStrict": true,
   "dependencies": {
     "@faker-js/faker": "^9.7.0",
     "axios": "^1.7.9",
@@ -61,6 +64,5 @@
     "tsup": "^8.3.6",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.24.0"
-  },
-  "license": "MIT"
+  }
 }
