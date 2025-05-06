@@ -1,56 +1,61 @@
 import * as yup from 'yup';
-import { Resource } from '../resource';
-import { baseResourceSchema } from '../schemas';
-import { cast, castArray, validate } from '../utils';
+import { generatePaginationResponseSchema, PaginationParams } from '../schemas';
+import { cast, validate } from '../utils';
+import { Resource } from './base';
 
-export const customerSchema = baseResourceSchema.shape({
-  name: yup.string().required(),
-  email: yup.string().required().email(),
-  seller_category: yup.array().of(yup.string()).required(),
-  check_balance: yup.number().min(0).required(),
-  check_count: yup.number().min(0).required(),
+export const customerResponseSchema = yup.object({
+  id: yup.number().required(),
+  name: yup.string().nullable(),
+  email: yup.string().nullable(),
 });
 
-export type Customer = yup.InferType<typeof customerSchema>;
+export type CustomerResponse = yup.InferType<typeof customerResponseSchema>;
 
-export const createCustomerSchema = yup.object({
+export const paginatedCustomersResponseSchema =
+  generatePaginationResponseSchema(customerResponseSchema);
+
+export type PaginatedCustomersResponse = yup.InferType<
+  typeof paginatedCustomersResponseSchema
+>;
+
+export const createCustomerBodySchema = yup.object({
   name: yup.string().required(),
-  email: yup.string().required().email(),
-  seller_category: yup.array().of(yup.string()).required(),
+  email: yup.string().email().required(),
 });
 
-export type CreateCustomer = yup.InferType<typeof createCustomerSchema>;
+export type CreateCustomerBody = yup.InferType<typeof createCustomerBodySchema>;
 
 export class Customers extends Resource {
-  async list(): Promise<Customer[]> {
-    return castArray(
+  async list(params?: PaginationParams): Promise<PaginatedCustomersResponse> {
+    return cast(
       await this.client.request({
         method: 'GET',
         url: '/customers',
+        params,
       }),
-      customerSchema,
+      paginatedCustomersResponseSchema,
     );
   }
 
-  async get(id: number): Promise<Customer> {
+  async get(id: number): Promise<CustomerResponse> {
     return cast(
       await this.client.request({
         method: 'GET',
         url: `/customers/${id}`,
       }),
-      customerSchema,
+      customerResponseSchema,
     );
   }
 
-  async create(data: CreateCustomer): Promise<Customer> {
-    await validate(data, createCustomerSchema);
+  async create(data: CreateCustomerBody): Promise<CustomerResponse> {
+    await validate(data, createCustomerBodySchema);
     return cast(
       await this.client.request({
         method: 'POST',
         url: '/customers',
         data,
       }),
-      customerSchema,
+      customerResponseSchema,
     );
   }
 

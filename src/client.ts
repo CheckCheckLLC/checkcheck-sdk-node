@@ -3,7 +3,7 @@ import { defaultClientOptions } from './config';
 import { handleRequestError } from './errors';
 
 export interface ClientConfig {
-  apiKey: string;
+  apiKey?: string;
   baseURL?: string;
   apiVersion?: string;
   timeout?: number;
@@ -26,7 +26,7 @@ export class Client {
       baseURL,
       timeout: this.config.timeout,
       headers: {
-        'X-Api-Key': `${this.config.apiKey}`,
+        'api-key': `${this.config.apiKey}`,
         'Content-Type': 'application/json',
         ...this.config.headers,
       },
@@ -38,9 +38,9 @@ export class Client {
     );
   }
 
-  async request<T>(config: AxiosRequestConfig): Promise<T> {
+  async request(config: AxiosRequestConfig): Promise<any> {
     try {
-      const response = await this.axios.request<T>(config);
+      const response = await this.axios.request(config);
       return response.data;
     } catch (error) {
       throw handleRequestError(error);

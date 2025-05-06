@@ -1,4 +1,4 @@
-import { Client } from './client';
+import { Client } from '../client';
 
 // Resource is a class that contains shared logic for all resources
 export abstract class Resource {

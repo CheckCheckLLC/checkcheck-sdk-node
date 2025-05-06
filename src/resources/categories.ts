@@ -1,25 +1,37 @@
 import * as yup from 'yup';
-import { Resource } from '../resource';
-import { baseResourceSchema, translatableFieldSchema } from '../schemas';
-import { castArray } from '../utils';
+import {
+  generatePaginationResponseSchema,
+  PaginationParams,
+  translatableFieldSchema,
+} from '../schemas';
+import { cast } from '../utils';
+import { Resource } from './base';
 
-export const categorySchema = baseResourceSchema.shape({
-  name: translatableFieldSchema.required(),
+export const categoryResponseSchema = yup.object({
+  id: yup.number().integer().required(),
+  name: translatableFieldSchema.nullable(),
   sort_order: yup.number().integer(),
-  image_url: yup.string(),
-  active: yup.boolean().required(),
+  image_url: yup.string().nullable(),
 });
 
-export type Category = yup.InferType<typeof categorySchema>;
+export const paginatedCategoriesResponseSchema =
+  generatePaginationResponseSchema(categoryResponseSchema);
+
+export type PaginatedCategoriesResponseSchema = yup.InferType<
+  typeof paginatedCategoriesResponseSchema
+>;
 
 export class Categories extends Resource {
-  async list(): Promise<Category[]> {
-    return castArray(
+  async list(
+    params?: PaginationParams,
+  ): Promise<PaginatedCategoriesResponseSchema> {
+    return cast(
       await this.client.request({
         method: 'GET',
         url: '/categories',
+        params,
       }),
-      categorySchema,
+      paginatedCategoriesResponseSchema,
     );
   }
 }

@@ -8,12 +8,12 @@ export function cast<T>(data: any, schema: yup.Schema<T>): T {
   });
 }
 
-export function castArray<T>(data: any[], schema: yup.Schema<T>): T[] {
-  return yup.array().of(schema).cast(data, {
-    stripUnknown: true,
-    assert: false,
-  }) as T[];
-}
+// export function castArray<T>(data: any[], schema: yup.Schema<T>): T[] {
+//   return yup.array().of(schema).cast(data, {
+//     stripUnknown: true,
+//     assert: false,
+//   }) as T[];
+// }
 
 export async function validate<T>(
   data: any,
@@ -33,12 +33,12 @@ export async function validate<T>(
     throw error;
   }
 }
-export async function validateArray<T>(
-  data: any[],
-  schema: yup.Schema<T>,
-): Promise<T[]> {
-  return (await yup
-    .array()
-    .of(schema)
-    .validate(data, { abortEarly: false })) as T[];
-}
+// export async function validateArray<T>(
+//   data: any[],
+//   schema: yup.Schema<T>,
+// ): Promise<T[]> {
+//   return (await yup
+//     .array()
+//     .of(schema)
+//     .validate(data, { abortEarly: false })) as T[];
+// }
