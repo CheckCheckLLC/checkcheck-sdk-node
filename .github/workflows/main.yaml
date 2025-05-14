@@ -1,3 +1,4 @@
+# File: .github/workflows/ci-cd-main.yml
 name: CI/CD - PRODUCTION
 
 # Grant checkout and package‑publish rights
@@ -15,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [18.x, 20.x, 22.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -38,7 +39,7 @@ jobs:
       - name: Test
         run: yarn test
 
-  publish-prod:
+  publish:
     needs: build
     runs-on: ubuntu-latest
 
@@ -48,7 +49,7 @@ jobs:
       - name: Use Node.js and point at GitHub Packages
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x' # Updated from 16.x
+          node-version: '18.x' # Minimum supported version
           registry-url: https://npm.pkg.github.com
           scope: '@CheckCheckLLC'
           cache: 'yarn'
