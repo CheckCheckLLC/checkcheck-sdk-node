@@ -16,10 +16,16 @@
     "url": "https://github.com/CheckCheckLLC/checkcheck/issues"
   },
   "homepage": "https://github.com/CheckCheckLLC/checkcheck#readme",
-  "keywords": ["api", "sdk", "checkcheck"],
+  "keywords": [
+    "api",
+    "sdk",
+    "checkcheck"
+  ],
   "author": "CheckCheck",
   "license": "MIT",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "require": "./dist/index.js",
@@ -40,7 +46,9 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "testMatch": ["**/test/**/*.test.ts"]
+    "testMatch": [
+      "**/test/**/*.test.ts"
+    ]
   },
   "engines": {
     "node": ">=18.0.0"
@@ -48,6 +56,7 @@
   "dependencies": {
     "@faker-js/faker": "^9.7.0",
     "axios": "^1.7.9",
+    "form-data": "^4.0.2",
     "yup": "^1.6.1"
   },
   "devDependencies": {

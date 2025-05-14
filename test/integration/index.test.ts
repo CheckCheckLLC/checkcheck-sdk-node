@@ -12,7 +12,7 @@ import {
   customerResponseSchema,
   paginatedCustomersResponseSchema,
 } from '../../src/resources/customers';
-import { fileUploadResponseSchema } from '../../src/resources/files';
+import { imageUploadResponseSchema } from '../../src/resources/files';
 import { planOrderResponseSchema } from '../../src/resources/planOrders';
 import { paginatedPlansResponseSchema } from '../../src/resources/plans';
 import { paginatedServiceLevelsResponseSchema } from '../../src/resources/service-levels';
@@ -23,6 +23,7 @@ import {
   updateWebhookBodySchema,
   webhookResponseSchema,
 } from '../../src/resources/webhooks';
+import { generateMockImage } from '../utils';
 const API_KEY =
   'f0da95ce508d74b29ceb9193cbb3f592f47b11840eb15f3a2a94b804e76ffe1d';
 const DEBUG = false;
@@ -32,14 +33,6 @@ const debug = (msg: any) => {
     console.log(msg);
   }
 };
-
-const generateMockImage = () => {
-  const pngBase64 =
-    'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
-  const pngBytes = Buffer.from(pngBase64, 'base64');
-  return new File([pngBytes], 'test.png', { type: 'image/png' });
-};
-
 describe('CheckCheck Integration Tests', () => {
   const checkcheck = new CheckCheck(API_KEY, {
     env: 'sandbox',
@@ -228,16 +221,17 @@ describe('CheckCheck Integration Tests', () => {
     });
   });
 
-  describe('Uploads', () => {
+  describe.only('Uploads', () => {
     it('can upload a file', async () => {
-      const result = await checkcheck.files.upload({
-        file: generateMockImage(),
+      const result = await checkcheck.files.uploadImage({
+        file: generateMockImage({ type: 'buffer', format: 'png' }),
+        filename: 'test.png',
         customer_id: 1,
       });
 
       // Validate with schema
       await expect(
-        fileUploadResponseSchema.validate(result),
+        imageUploadResponseSchema.validate(result),
       ).resolves.toBeTruthy();
     });
   });
@@ -251,9 +245,9 @@ describe('CheckCheck Integration Tests', () => {
 
     beforeAll(async () => {
       // Create a new check request
-      const testImage = generateMockImage();
-      const uploadResponse = await checkcheck.files.upload({
-        file: testImage,
+      const uploadResponse = await checkcheck.files.uploadImage({
+        file: generateMockImage({ type: 'buffer', format: 'png' }),
+        filename: 'test.png',
         customer_id: customerId,
       });
       imageUrl = uploadResponse.url;
