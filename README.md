@@ -77,7 +77,7 @@ The SDK provides access to the following API resources and methods:
 
 ### Files
 
-- `upload(data)`: Upload a file with customer association
+- `uploadImage(data)`: Upload an image with customer association
 
 ### CheckRequests
 
