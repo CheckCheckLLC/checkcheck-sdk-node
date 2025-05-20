@@ -1,5 +1,5 @@
 {
-  "name": "@CheckCheckLLC/checkcheck",
+  "name": "@checkcheckllc/checkcheck",
   "version": "0.0.1",
   "description": "CheckCheck Node SDK for sneaker authentication services",
   "main": "dist/index.js",
@@ -28,9 +28,9 @@
   ],
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/index.mjs"
     }
   },
   "scripts": {

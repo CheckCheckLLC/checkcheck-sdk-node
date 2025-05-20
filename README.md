@@ -4,32 +4,42 @@ Official Node.js SDK for the CheckCheck API.
 
 ## Installation
 
+Create a .npmrc file in your project root (same level as package.json) and add the following line:
+
+```
+@checkcheckllc:registry=https://npm.pkg.github.com
+//registry.npmjs.org/:_authToken=${GH_TOKEN}
+```
+
+For more information on how to generate a GitHub token, please refer to [GitHub's documentation](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-with-a-personal-access-token).
+
+Then, install the SDK using npm or yarn:
+
 ```sh
-npm install checkcheck
+npm install @checkcheckllc/checkcheck
 # or
-yarn add checkcheck
+yarn add @checkcheckllc/checkcheck
 ```
 
 ## Quick Start
 
 ```typescript
-import { CheckCheck } from 'checkcheck';
+import CheckCheck from "@checkcheckllc/checkcheck";
 
-const client = new CheckCheck('your-secret-key', {
-  env: 'sandbox',
+const checkcheck = new CheckCheck('YOUR_API_TOKEN', {
+   env: 'sandbox', // or 'live'
 });
 
-// List categories
-const categories = await client.categories.list({
-  page: 1,
-  limit: 10,
-});
+const main = async () => {
+   // List categories
+   const categories = await checkcheck.categories.list({
+      page: 1,
+      limit: 10,
+   });
+   console.log(categories);
+}
 
-// Create a customer
-const customer = await client.customers.create({
-  name: 'John Doe',
-  email: 'john@example.com',
-});
+main()
 ```
 
 ## Contributing
